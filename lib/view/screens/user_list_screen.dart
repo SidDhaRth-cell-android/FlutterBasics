@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter09/view/screens/login_page.dart';
 import 'package:flutter09/vm/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+const methodChannel = MethodChannel("com.example.flutter09");
+
+doSomeExpensiveWork() {
+  for (double i = 0; i < 1000000000000000000; i++) {
+    print(i);
+  }
+}
 
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -25,6 +34,10 @@ class _UserListScreenState extends State<UserListScreen> {
 
   void _initSharedPref() async {
     _sharedPreferences = await SharedPreferences.getInstance();
+    final response = await methodChannel.invokeMethod("Display");
+    // await compute(doSomeExpensiveWork(), "Message");
+    //await doSomeExpensiveWork();
+    print(response);
   }
 
   @override

@@ -1,9 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="flutter09"
         android:name="${applicationName}"
       android:roundIcon="@mipmap/ic_logo"
         android:icon="@mipmap/ic_logo">
+
+
+
 
         <activity
             android:name=".MainActivity"

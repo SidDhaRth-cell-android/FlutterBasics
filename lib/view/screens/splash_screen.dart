@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter09/view/screens/login_page.dart';
+import 'package:flutter09/view/screens/my_custom_webview.dart';
 import 'package:flutter09/view/screens/user_list_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,10 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(milliseconds: 1500), () {
       if (_sharedPreferences.getBool("isLoggedIn") == true) {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => UserListScreen()));
+            context, MaterialPageRoute(builder: (_) => MyCustomWebview(url: "",)));
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => LoginPage()));
+            context, MaterialPageRoute(builder: (_) => MyCustomWebview()));
       }
     });
   }
