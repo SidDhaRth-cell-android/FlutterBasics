@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1001913392433",
+    "firebase_url": "https://flutter09-5cdfa-default-rtdb.firebaseio.com",
+    "project_id": "flutter09-5cdfa",
+    "storage_bucket": "flutter09-5cdfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001913392433:android:645f7f26339be913786410",
+        "android_client_info": {
+          "package_name": "com.example.flutter09"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdEiU4mohdnjv6gSyfM4gcaCO2FVAPKRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
