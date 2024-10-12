@@ -19,7 +19,6 @@ void main(){
 
   address = 2;
   age = 12;
-  pie = 123;
 
 
 }
