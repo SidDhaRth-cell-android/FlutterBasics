@@ -24,70 +24,66 @@ class LoanPurposeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Select Loan Purpose",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: GridView.builder(
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 50),
-                    itemCount: loanPurposes.length,
-                    itemBuilder: (context, index) {
-                      final loanPurpose = loanPurposes[index];
-                      return InkWell(
-                        onTap: () {
-                          creditScoringData.loanPurpose = loanPurpose.id;
-                          onPurposeSelected?.call(loanPurpose.name);
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          alignment: Alignment.center,
-                          color: Colors.red,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                loanPurpose.name,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                              ),
-                              Icon(
-                                size: 30,
-                                loanPurpose.icon,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            )
-          ],
+    return Column(
+      children: [
+        SizedBox(
+          height: 20,
         ),
-      ),
+        Text(
+          "Select Loan Purpose",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: GridView.builder(
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 20,
+                    crossAxisSpacing: 50),
+                itemCount: loanPurposes.length,
+                itemBuilder: (context, index) {
+                  final loanPurpose = loanPurposes[index];
+                  return InkWell(
+                    onTap: () {
+                      creditScoringData.loanPurpose = loanPurpose.id;
+                      onPurposeSelected?.call(loanPurpose.name);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(10),
+                      alignment: Alignment.center,
+                      color: Colors.red,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            loanPurpose.name,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Icon(
+                            size: 30,
+                            loanPurpose.icon,
+                            color: Colors.white,
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        )
+      ],
     );
   }
 }

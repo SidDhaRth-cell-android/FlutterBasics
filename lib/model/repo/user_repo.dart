@@ -10,7 +10,7 @@ class UserRepo {
 
   Future<UserListResponse> getUserList(String url) async {
     final response = await userService.get(url);
-    return UserListResponse.fromJson(jsonDecode(response));
+    return UserListResponse.fromJson(jsonDecode(response)); // json
   }
 
   Future<UserAddResponse> postUserData(

@@ -19,7 +19,8 @@ class UserListResponse {
         data?.add(new UserResponse.fromJson(v));
       });
     }
-    this.support = json["support"]!=null ? Support.fromJson(json["support"]) : null;
+    this.support =
+        json["support"] != null ? Support.fromJson(json["support"]) : null;
   }
 }
 
@@ -29,6 +30,7 @@ class UserResponse {
   String? first_name;
   String? last_name;
   String? avatar;
+  bool isHired = false;
 
   UserResponse.fromJson(Map<String, dynamic> json) {
     id = json['id'];

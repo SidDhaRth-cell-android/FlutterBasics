@@ -10,6 +10,7 @@ class PersonalInformationScreen extends StatefulWidget {
 }
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
+  TextEditingController _userIdController = TextEditingController();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _occupationController = TextEditingController();
   TextEditingController _companyController = TextEditingController();
@@ -31,137 +32,157 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  controller: _fullNameController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Full Name",
-                      labelText: "Full Name"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Name is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.fullName = value;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _occupationController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Occupation",
-                      labelText: "Occupation"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Occupation is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.occupation = value;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _companyController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Company",
-                      labelText: "Company"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Company is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.company = value;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _industryController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Industry",
-                      labelText: "Industry"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Industry is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.industry = value;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _companyAddressController,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Company Address",
-                      labelText: "Company Address"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Company Address is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.companyAddress = value;
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: _annualIncomeController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: "Enter Annual Income",
-                      labelText: "Annual Income"),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value != null && value.isEmpty) {
-                      return "Annual Income is mandatory";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    creditScoringData.annualIncome = int.parse(value);
-                  },
-                ),
-              ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
             ),
-          ),
+            TextFormField(
+              keyboardType: TextInputType.number,
+              controller: _userIdController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter User Id",
+                  labelText: "User Id"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "UserId is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.userId = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _fullNameController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Full Name",
+                  labelText: "Full Name"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Name is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.fullName = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _occupationController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Occupation",
+                  labelText: "Occupation"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Occupation is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.occupation = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _companyController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Company",
+                  labelText: "Company"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Company is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.company = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _industryController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Industry",
+                  labelText: "Industry"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Industry is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.industry = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _companyAddressController,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Company Address",
+                  labelText: "Company Address"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Company Address is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.companyAddress = value;
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: _annualIncomeController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: "Enter Annual Income",
+                  labelText: "Annual Income"),
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (value) {
+                if (value != null && value.isEmpty) {
+                  return "Annual Income is mandatory";
+                }
+                return null;
+              },
+              onChanged: (value) {
+                creditScoringData.annualIncome = int.parse(value);
+              },
+            ),
+            SizedBox(
+              height: 20,
+            )
+          ],
         ),
       ),
     );

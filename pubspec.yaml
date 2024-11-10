@@ -51,6 +51,10 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^27.1.52
   syncfusion_flutter_signaturepad: ^27.1.52
   sqflite: ^2.3.3+1
+  connectivity: ^3.0.6
+  flutter_spinkit: ^5.2.1
+  flutter_email_sender: ^6.0.3
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +81,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/loan_agreement.pdf
+    - assets/success.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

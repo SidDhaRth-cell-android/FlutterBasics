@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter09/vm/counter_provider.dart';
+import 'package:flutter09/vm/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 class CounterScreen extends StatefulWidget {
@@ -25,9 +26,10 @@ class _CounterScreenState extends State<CounterScreen> {
           ),
           ElevatedButton(
               onPressed: () {
-                context.read<CounterProvider>().incrementCounter();
+                context.read<UserViewmodel>().deleteUser();
+                //context.read<CounterProvider>().incrementCounter();
               },
-              child: Text("Increment"))
+              child: Text("Delete"))
         ],
       ),
     );

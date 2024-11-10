@@ -5,10 +5,11 @@ import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugins.GeneratedPluginRegistrant
+import org.json.JSONObject
 
 class MainActivity : FlutterActivity() {
 
-  private val CHANNEL = "com.example.flutter09"
+  private val CHANNEL = "com.flutter09"
 
 
   override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
@@ -18,8 +19,10 @@ class MainActivity : FlutterActivity() {
       CHANNEL
     ).setMethodCallHandler { call, result ->
       if (call.method == "display") {
-        Log.e("TAG", "efhwieufhuwiefb: ")
-        result.success("Called Successfully")
+        // SDK invoke
+        val paymentGateay = PaymentGateway()
+        paymentGateay.launch()
+        result.success("sjkfbksdabf")
       } else {
         result.notImplemented()
       }

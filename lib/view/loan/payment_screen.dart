@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter09/view/loan/dashboard_screen.dart';
+import 'package:flutter09/view/loan/payment_done_screen.dart';
 
 class PaymentScreen extends StatelessWidget {
   @override
@@ -28,13 +29,15 @@ class PaymentScreen extends StatelessWidget {
             Text("Total Amount: \$${creditScoringData.requestedLoanAmount}"),
             Text(
                 "Amount will be paid by Kobil Pay: \$${creditScoringData.requestedLoanAmount}"),
-            PaymentOptionCard(
-              icon: Icons.monetization_on_outlined,
-              title: 'Pay using Kobil Pay',
-              onTap: () {
-                // Navigate to card payment screen
-              },
-            ),
+            if (creditScoringData.isApproved &&
+                !creditScoringData.isUserHasPreviousCredit)
+              PaymentOptionCard(
+                icon: Icons.monetization_on_outlined,
+                title: 'Pay using Kobil Pay',
+                onTap: () {
+                  _navigateToPaymentSuccessful(context);
+                },
+              ),
             SizedBox(
               height: 30,
             ),
@@ -78,6 +81,11 @@ class PaymentScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _navigateToPaymentSuccessful(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (_) => PaymentDoneScreen()));
   }
 }
 
