@@ -9,26 +9,6 @@ import org.json.JSONObject
 
 class MainActivity : FlutterActivity() {
 
-  private val CHANNEL = "com.flutter09"
 
-
-  override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
-    GeneratedPluginRegistrant.registerWith(flutterEngine)
-    MethodChannel(
-      flutterEngine.dartExecutor.binaryMessenger,
-      CHANNEL
-    ).setMethodCallHandler { call, result ->
-      if (call.method == "display") {
-        // SDK invoke
-        val paymentGateay = PaymentGateway()
-        paymentGateay.launch()
-        result.success("sjkfbksdabf")
-      } else {
-        result.notImplemented()
-      }
-    }
-    super.configureFlutterEngine(flutterEngine)
-
-  }
 
 }
