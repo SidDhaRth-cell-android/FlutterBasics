@@ -1,52 +1,26 @@
 {
   "project_info": {
-    "project_number": "1001913392433",
-    "firebase_url": "https://flutter09-5cdfa-default-rtdb.firebaseio.com",
-    "project_id": "flutter09-5cdfa",
-    "storage_bucket": "flutter09-5cdfa.appspot.com"
+    "project_number": "795029654460",
+    "project_id": "ducat-1cctgfb",
+    "storage_bucket": "ducat-1cctgfb.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1001913392433:android:645f7f26339be913786410",
+        "mobilesdk_app_id": "1:795029654460:android:1a0312cb4924f6cd8779b9",
         "android_client_info": {
           "package_name": "com.example.flutter09"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "1001913392433-4jda40s1rn57qdd81s2ip2va2aogta7h.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.flutter09",
-            "certificate_hash": "1855bc11f69fbb4625050d68e6ace90f39c787d6"
-          }
-        },
-        {
-          "client_id": "1001913392433-rlgt3p9g8ben5c896hrlm8aev527k3hc.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDdEiU4mohdnjv6gSyfM4gcaCO2FVAPKRM"
+          "current_key": "AIzaSyBNnhLRDJYDWegvouc-l6VA8aSsPx_AzZA"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "1001913392433-rlgt3p9g8ben5c896hrlm8aev527k3hc.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "1001913392433-no8p5tfjafbhud2g547ofte9ups3ji15.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.flutter09"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
