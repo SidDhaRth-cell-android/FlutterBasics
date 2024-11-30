@@ -1,8 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter09/view/active/post_screen.dart';
+import 'package:flutter09/view/fingerprint_authentication_screen.dart';
 import 'package:flutter09/vm/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,8 @@ const channel = MethodChannel("com.flutter09");
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  if(Platform.isAndroid){
+  Firebase.initializeApp();
+  if (Platform.isAndroid) {
     final returnValue = await channel.invokeMethod("display");
     print(returnValue);
   }
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
-      home: PostScreen(),
+      home: FingerprintAuthenticationScreen(),
     );
   }
 }

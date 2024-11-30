@@ -20,8 +20,6 @@ class MainActivity : FlutterActivity() {
     ).setMethodCallHandler { call, result ->
       if (call.method == "display") {
         // SDK invoke
-        val paymentGateay = PaymentGateway()
-        paymentGateay.launch()
         result.success("sjkfbksdabf")
       } else {
         result.notImplemented()
