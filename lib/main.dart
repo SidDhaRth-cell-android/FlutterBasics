@@ -22,6 +22,8 @@ class TextWidget extends StatefulWidget {
 class _TextWidgetState extends State<TextWidget> {
   GoogleSignIn _googleSignIn = GoogleSignIn();
 
+  TextEditingController _emailController =  TextEditingController();
+
   Future<void> _handleSignIn() async {
     try {
       await _googleSignIn.signIn();
@@ -33,31 +35,51 @@ class _TextWidgetState extends State<TextWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: Padding(
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-            onPressed: () {
-              _handleSignIn();
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Google',
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(
-                  Icons.search,
-                  color: Colors.white,
-                )
-              ],
-            )),
-      )),
+        child: Center(child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset("assets/images/behaviour_icon.png"),
+            TextField(
+              controller: _emailController,
+              decoration: InputDecoration(
+                labelText: "Enter email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20,),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: "Enter password",
+                border: OutlineInputBorder(),
+              ),
+              validator: (value) {
+                if(value?.isEmpty == true || value!.length < 6){
+                  return "Password must be at least 6 characters";
+                }
+                return null;
+              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+            ),
+            SizedBox(height: 20,),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(onPressed: (){
+               final password = _emailController.text;
+               if(password?.isEmpty == true || password!.length < 6){
+                 print( "Password must be at least 6 characters");
+               }
+               // hitApi();
+              },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue
+                  ),
+                  child: Text("Log in", style: TextStyle(color: Colors.white),)),
+            )
+          ],
+        )),
+      ),
     );
   }
 }
