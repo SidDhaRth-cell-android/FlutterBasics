@@ -1,12 +1,29 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter09/chess_board.dart';
-import 'package:flutter09/locked_profile.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final token = await FirebaseMessaging.instance.getToken();
+  print("token ======================> $token");
+
+  FirebaseMessaging.onMessageOpenedApp.listen((remoteMessage) {
+    print(remoteMessage);
+    print(remoteMessage.notification?.title);
+    print(remoteMessage.notification?.body);
+    print(remoteMessage.notification?.android?.imageUrl);
+  });
+
+
+  FirebaseMessaging.onMessage.listen((remoteMessage){
+    print(remoteMessage);
+    print(remoteMessage.notification?.title);
+    print(remoteMessage.notification?.body);
+    print(remoteMessage.notification?.android?.imageUrl);
+  });
   runApp(MyApp());
 }
 
