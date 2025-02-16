@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter09/dashboard_screen.dart';
 import 'package:flutter09/login_form.dart';
+import 'package:flutter09/models/requests/register_request.dart';
 import 'package:flutter09/providers/registration_provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +39,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    print("CALLED");
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -48,6 +52,36 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 Text(
                   "Registration",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 110,
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: capturedImage != null
+                                ? Image.file(
+                                    File(capturedImage?.path ?? ""),
+                                    fit: BoxFit.cover,
+                                  )
+                                : Center(child: Icon(Icons.person)),
+                          )),
+                      Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: IconButton(
+                              onPressed: () {
+                                _showBottomSheetToPickImage(context);
+                              },
+                              icon: Icon(Icons.camera)))
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 30,
@@ -78,7 +112,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 SizedBox(
                   height: 10,
                 ),
-                Text("Email"),
+                Text("Job"),
                 Container(
                   decoration: BoxDecoration(
                       color: Colors.grey.shade300,
@@ -89,12 +123,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                          border: InputBorder.none, hintText: "Enter email"),
+                          border: InputBorder.none, hintText: "Enter Job"),
                       validator: (value) {
                         if (value?.isEmpty == true) {
-                          return "Email cannot be empty";
-                        } else if (!emailRegex.hasMatch(value ?? "")) {
-                          return "Invalid Email";
+                          return "Job cannot be empty";
                         }
                         return null;
                       },
@@ -104,67 +136,6 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 ),
                 SizedBox(
                   height: 10,
-                ),
-                Text("Password"),
-                Consumer<RegistrationProvider>(
-                  builder: (_, registrationProvider, __) {
-                    return Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(6)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: !registrationProvider.isPasswordShown,
-                          decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "Enter password",
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    registrationProvider
-                                        .handlePasswordVisibility();
-                                  },
-                                  icon: Icon(
-                                      registrationProvider.isPasswordShown
-                                          ? Icons.visibility
-                                          : Icons.visibility_off))),
-                          validator: (value) {
-                            if (value?.isEmpty == true) {
-                              return "Password cannot be empty";
-                            } else if (value?.length != 10) {
-                              return "Password should be 10 digits";
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("Phone number"),
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(6)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextFormField(
-                      controller: _phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Enter phone number"),
-                      validator: validatePhoneNumber,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
                 ),
                 Row(
                   children: [
@@ -177,35 +148,38 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                         .read<RegistrationProvider>()
                                         .checkIfToggleEnabled() ==
                                     true) {
-                              final firstName = _firstNameController.text;
-                              final email = _emailController.text;
-                              final password = _passwordController.text;
-                              final phoneNumber = _phoneNumberController.text;
-                              _sharedPreferences.setString(
-                                  "first_name", firstName);
-                              _sharedPreferences.setString("email", email);
-                              _sharedPreferences.setString(
-                                  "password", password);
-                              _sharedPreferences.setString(
-                                  "phone_number", phoneNumber);
-                              _sharedPreferences.setBool(
-                                  "is_terms_and_conditions_accepted", true);
-                              Fluttertoast.showToast(
-                                  msg:
-                                      "You're registered successfully. Please login now.");
-                              Future.delayed(Duration(seconds: 2), () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => LoginForm()));
+                              RegisterRequest registerRequest =
+                                  RegisterRequest();
+                              registerRequest.name = _firstNameController.text;
+                              registerRequest.job = _emailController.text;
+                              context
+                                  .read<RegistrationProvider>()
+                                  .registerUser(registerRequest)
+                                  .then((onValue) {
+                                Fluttertoast.showToast(
+                                    msg: "User Registered Successfully");
                               });
                             } else {
                               print("Form is not valid");
                             }
                           },
-                          child: Text(
-                            "Register",
-                            style: TextStyle(color: Colors.white),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Register",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              context.watch<RegistrationProvider>().isLoading
+                                  ? SizedBox(
+                                      height: 18,
+                                      width: 18,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Container()
+                            ],
                           ),
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
@@ -242,7 +216,9 @@ class _RegistrationFormState extends State<RegistrationForm> {
                         child: Text(
                             "I agree to the terms and conditions of Privacy Policy"))
                   ],
-                )
+                ),
+                Text(
+                    "${context.watch<RegistrationProvider>().registerResponse.toJson()}")
               ],
             ),
           ),
@@ -267,5 +243,96 @@ class _RegistrationFormState extends State<RegistrationForm> {
       return "Phone number should be 10 digits";
     }
     return null;
+  }
+
+  XFile? capturedImage;
+
+  void _showBottomSheetToPickImage(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        isDismissible: false,
+        builder: (context) {
+          return Dialog(child: ChoosePictureBottomSheet((image) {
+            setState(() {
+              capturedImage = image;
+            });
+          }));
+        });
+  }
+}
+
+class ChoosePictureBottomSheet extends StatelessWidget {
+  Function(XFile?) onImageCaptured;
+
+  ChoosePictureBottomSheet(this.onImageCaptured, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: () {
+              _askGalleryPermission();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Gallery",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Icon(Icons.add_link_sharp)
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          InkWell(
+            onTap: () {
+              _checkForCameraPermission();
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Camera", style: TextStyle(fontSize: 20)),
+                Icon(Icons.add_link_sharp)
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _checkForCameraPermission() async {
+    final isCameraPermissionGranted = await Permission.camera.status;
+    if (isCameraPermissionGranted == PermissionStatus.granted) {
+      _showCamera();
+    } else {
+      Permission.camera.request();
+    }
+  }
+
+  void _showCamera() async {
+    final capturedImage = await ImagePicker().pickImage(source: ImageSource.camera);
+    onImageCaptured.call(capturedImage);
+  }
+
+  void _askGalleryPermission() async {
+    final isGalleryPermissionGranted = await Permission.photos.status;
+    if (isGalleryPermissionGranted == PermissionStatus.granted) {
+      _showGallery();
+    } else {
+      Permission.photos.request();
+    }
+  }
+
+  void _showGallery() async {
+    final capturedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    onImageCaptured.call(capturedImage);
   }
 }
